@@ -12,18 +12,16 @@ export default function useApplicationData() {
 
   function updateSpots(state, day) {
     const currentDay = day || state.day;
-    const currentDayObj = state.days.find((dayObj) => dayObj.name === currentDay);
-    const index = state.days.findIndex((dayObj) => dayObj.name === currentDay);
+    const currentDays = state.days.find((day) => day.name === currentDay);
+    const index = state.days.findIndex((day) => day.name === currentDay);
 
-    const appointmentIds = currentDayObj.appointments;
-
+    const appointmentIds = currentDays.appointments;
     const freeAppointments = appointmentIds.filter((apptId) => !state.appointments[apptId].interview);
-
     const newSpots = freeAppointments.length;
 
     const updatedState = { ...state };
     updatedState.days = [...state.days];
-    const updatedDay = { ...currentDayObj };
+    const updatedDay = { ...currentDays };
 
     updatedDay.spots = newSpots;
 
